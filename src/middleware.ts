@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import type { Database } from '@/models/supabase'
 
-export async function middleware(req: NextRequest) {
+export async function middleware (req: NextRequest): Promise<NextResponse> {
   const res = NextResponse.next()
   const supabase = createMiddlewareClient<Database>({ req, res })
   await supabase.auth.getSession()

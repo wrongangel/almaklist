@@ -1,0 +1,17 @@
+:root {
+  --background-color: rgb(254, 255, 252);
+  --text-color: rgb(11, 0, 43);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: rgb(11, 0, 43);
+    --text-color: rgb(255, 239, 239);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}

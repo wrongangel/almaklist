@@ -10,14 +10,14 @@ const SignupForm = (): React.ReactNode => {
   const router = useRouter()
   const signup = async (): Promise<void> => {
     try {
-      const {error} = await supabaseClient.auth.signUp({
+      const { error } = await supabaseClient.auth.signUp({
         email,
         password,
         options: {
           emailRedirectTo: `${location.origin}/auth/callback`
         }
       })
-      if (error){
+      if (error !== null) {
         console.log(error.message)
       } else {
         router.push('/application/dashboard')

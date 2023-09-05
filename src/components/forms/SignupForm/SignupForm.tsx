@@ -1,19 +1,30 @@
 'use client'
 import { supabaseClient } from '@/service/supabase'
 import * as Form from '@radix-ui/react-form'
+import { useRouter } from 'next/navigation'
 import { type FormEvent, useState } from 'react'
 
 const SignupForm = (): React.ReactNode => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassord] = useState<string>('')
+  const router = useRouter()
   const signup = async (): Promise<void> => {
-    await supabaseClient.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${location.origin}/auth/callback`
+    try {
+      const {error} = await supabaseClient.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${location.origin}/auth/callback`
+        }
+      })
+      if (error){
+        console.log(error.message)
+      } else {
+        router.push('/application/dashboard')
       }
-    })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const handleSignup = (e: FormEvent): void => {

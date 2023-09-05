@@ -5,8 +5,8 @@ export default function Home (): React.ReactNode {
   return (
     <main className={styles.main}>
       <h1>{'Let\'s start'}</h1>
-      <Link href={'auth/login'}>log in</Link>
-      <Link href={'auth/registration'}>register</Link>
+      <Link href={'login'}>log in</Link>
+      <Link href={'registration'}>register</Link>
     </main>
   )
 }

@@ -7,7 +7,7 @@ import type { Database } from '@/models/supabase'
 
 export const dynamic = 'force-dynamic'
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest): Promise<NextResponse> {
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
 
@@ -17,5 +17,5 @@ export async function GET(request: NextRequest) {
   }
 
   // URL to redirect to after sign in process completes
-  return NextResponse.redirect(requestUrl.origin)
+  return NextResponse.redirect('/dashboard')
 }

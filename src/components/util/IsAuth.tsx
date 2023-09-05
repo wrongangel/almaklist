@@ -1,13 +1,20 @@
-import { type Database } from '@/models/supabase'
-import { createClient } from '@supabase/supabase-js'
-import { redirect } from 'next/navigation'
+'use client'
+import { supabaseClient } from '@/service/supabase'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
-const IsAuth = async (): Promise<JSX.Element> => {
-  const supabase = createClient<Database>(process.env.NEXT_PUBLIC_SUPABASE_URL as string, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string)
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) {
-    redirect('/')
+const IsAuth = (): JSX.Element => {
+  const router = useRouter()
+  const getUser = async (): Promise<void> => {
+    const { data: { session } } = await supabaseClient.auth.getSession()
+    if (session === null) {
+      router.push('/')
+    }
   }
+
+  useEffect(() => {
+    void getUser()
+  })
   return <></>
 }
 export default IsAuth

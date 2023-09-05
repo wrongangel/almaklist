@@ -1,5 +1,3 @@
-import IsAuth from '@/components/util/IsAuth'
-
 export default function RootLayout ({
   children
 }: {
@@ -7,7 +5,6 @@ export default function RootLayout ({
 }): React.ReactNode {
   return (
     <main>
-      <IsAuth />
       <h2>Authorized</h2>
       {children}
     </main>

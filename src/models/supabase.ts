@@ -9,6 +9,43 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      invites: {
+        Row: {
+          created_at: string
+          email: string
+          from: string
+          id: string
+          to_list: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          from: string
+          id?: string
+          to_list: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          from?: string
+          id?: string
+          to_list?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invites_from_fkey"
+            columns: ["from"]
+            referencedRelation: "user_data"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invites_to_list_fkey"
+            columns: ["to_list"]
+            referencedRelation: "list"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       item_entries: {
         Row: {
           added_by: string

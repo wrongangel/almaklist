@@ -17,5 +17,5 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   }
 
   // URL to redirect to after sign in process completes
-  return NextResponse.redirect('/dashboard')
+  return NextResponse.redirect('/application/dashboard')
 }

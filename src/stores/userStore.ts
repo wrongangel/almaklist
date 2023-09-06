@@ -1,8 +1,21 @@
 import { type BasicUser } from '@/models/user'
 import { create } from 'zustand'
 
-export const useUserStore = create<BasicUser>((set) => ({
+interface Actions {
+  setState: (newState: BasicUser) => void
+}
+
+export const useUserStore = create<BasicUser & Actions>((set) => ({
   id: '',
   email: '',
-  role: 'user'
+  role: 'user',
+  setState: (newState) => {
+    set(() => {
+      return ({
+        id: newState.id,
+        email: newState.email,
+        role: newState.role
+      })
+    })
+  }
 }))

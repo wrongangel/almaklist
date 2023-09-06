@@ -4,5 +4,21 @@
     "eslint:recommended",
     "standard-with-typescript"
   ],
-  "plugins": ["only-warn"]
+  "plugins": [
+    "only-warn"
+  ],
+  "rules": {
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "variableLike",
+        "format": [
+          "snake_case",
+          "camelCase",
+          "PascalCase",
+          "UPPER_CASE"
+        ]
+      }
+    ]
+  }
 }

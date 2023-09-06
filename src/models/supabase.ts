@@ -171,18 +171,21 @@ export interface Database {
           created_at: string
           id: string
           user_id: string
+          userName: string | null
         }
         Insert: {
           avatar?: string | null
           created_at?: string
           id?: string
           user_id: string
+          userName?: string | null
         }
         Update: {
           avatar?: string | null
           created_at?: string
           id?: string
           user_id?: string
+          userName?: string | null
         }
         Relationships: [
           {

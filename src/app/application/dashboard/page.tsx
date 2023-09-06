@@ -1,5 +1,6 @@
 import supabaseServer from '@/service/supabase'
 import { useUserStore } from '@/stores/userStore'
+import Link from 'next/link'
 
 interface List {
   created_at: string
@@ -33,7 +34,7 @@ const Dashboard = async (): Promise<JSX.Element> => {
   return (
     <div>
       {lists.map(item => (
-        <div key={item.id}>{item.id} {item.name}</div>
+        <Link href={`/application/list/${item.id}`} key={item.id}>{item.id} {item.name}</Link>
       ))}
     </div>
   )

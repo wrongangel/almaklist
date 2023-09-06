@@ -221,7 +221,7 @@ export interface Database {
           }
         ]
       }
-      "users-to-lists": {
+      users_to_lists: {
         Row: {
           id: number
           list: string
@@ -239,13 +239,13 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "users-to-lists_list_fkey"
+            foreignKeyName: "users_to_lists_list_fkey"
             columns: ["list"]
             referencedRelation: "list"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "users-to-lists_user_fkey"
+            foreignKeyName: "users_to_lists_user_fkey"
             columns: ["user"]
             referencedRelation: "user_data"
             referencedColumns: ["id"]

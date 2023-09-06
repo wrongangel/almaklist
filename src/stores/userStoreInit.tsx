@@ -1,5 +1,5 @@
 'use client'
-import { BasicUser } from '@/models/user'
+import { type BasicUser } from '@/models/user'
 import { useRef } from 'react'
 import { useUserStore } from './userStore'
 

@@ -1,4 +1,5 @@
 import Container from '@/components/Container/Container'
+import Header from '@/components/Header/Header'
 import globalStyles from '@/styles/Globals.module.scss'
 
 export default function RootLayout ({
@@ -6,12 +7,13 @@ export default function RootLayout ({
 }: {
   children: React.ReactNode
 }): React.ReactNode {
-  return (
+  return (<>
+    <Header />
     <main className={globalStyles.main}>
       <Container>
-        <h2>Authorized</h2>
         {children}
       </Container>
     </main>
+  </>
   )
 }

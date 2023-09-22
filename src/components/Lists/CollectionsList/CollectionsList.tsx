@@ -2,7 +2,9 @@
 import type Collection from '@/models/collection'
 import { supabaseClient } from '@/service/supabase'
 import { useUserStore } from '@/stores/userStore'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import styles from './CollectionsList.module.scss'
 
 const CollectionsList = (): JSX.Element => {
   const userStore = useUserStore()
@@ -18,16 +20,18 @@ const CollectionsList = (): JSX.Element => {
       if (error !== null) console.log(error)
 
       if (data !== null && data.length > 0) {
-        setLists(data.map((item) => item.list!))
+        setLists(data.flatMap((item) => item.list ?? []))
       }
     }
     if (userStore.id !== '') void getLists()
   }, [userStore.id])
 
   return (
-    <div>
+    <div className={styles.collections}>
       {lists.map((list) => (
-        <div key={list.id}>{list.name}</div>
+        <Link href={`/application/list/${list.id}`} key={list.id} className={styles.collections__item}>
+          {list.name}
+        </Link>
       ))}
     </div>
   )

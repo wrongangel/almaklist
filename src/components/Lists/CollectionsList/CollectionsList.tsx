@@ -1,26 +1,22 @@
 'use client'
-import type Collection from '@/models/collection'
-import { supabaseClient } from '@/service/supabase'
 import { useUserStore } from '@/stores/userStore'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import styles from './CollectionsList.module.scss'
 import { useCollestionsStore } from '@/stores/collectionsStore'
+import CollectionCard from '@/components/Cards/CollectionCard/CollectionCard'
 
 const CollectionsList = (): JSX.Element => {
   const userStore = useUserStore()
-  const collestionsStore = useCollestionsStore()
+  const { collections, fetchCollections } = useCollestionsStore()
 
   useEffect(() => {
-    collestionsStore.fetchCollections(userStore.id)
-  }, [])
+    void fetchCollections(userStore.id)
+  }, [userStore.id, fetchCollections])
 
   return (
     <div className={styles.collections}>
-      {collestionsStore.collections.map((list) => (
-        <Link href={`/application/list/${list.id}`} key={list.id} className={styles.collections__item}>
-          {list.name}
-        </Link>
+      {collections.map((list) => (
+        <CollectionCard list={list} key={list.id} />
       ))}
     </div>
   )

@@ -1,11 +1,11 @@
-import Collection from '@/models/collection'
+import type Collection from '@/models/collection'
 import { supabaseClient } from '@/service/supabase'
 import { create } from 'zustand'
 
 interface CollectionsStore {
   collections: Collection[]
   setState: (newState: Collection[]) => void
-  fetchCollections: (id: string) => void
+  fetchCollections: (id: string) => Promise<void>
 }
 
 export const useCollestionsStore = create<CollectionsStore>((set) => ({
@@ -35,6 +35,5 @@ export const useCollestionsStore = create<CollectionsStore>((set) => ({
       }
       )
     }
-
   }
 }))

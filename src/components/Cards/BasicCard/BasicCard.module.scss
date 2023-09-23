@@ -1,0 +1,10 @@
+.basicCard {
+  border-radius: .5rem;
+  padding: 1.5rem;
+  border: .125rem solid gray;
+  transition: .125s;
+
+  &:hover {
+    background-color: lightgrey;
+  }
+}

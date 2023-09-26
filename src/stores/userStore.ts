@@ -1,8 +1,10 @@
 import { type BasicUser } from '@/models/user'
+import { supabaseClient } from '@/service/supabase'
 import { create } from 'zustand'
 
 interface Actions {
   setState: (newState: BasicUser) => void
+  getUser: () => Promise<void>
 }
 
 export const useUserStore = create<BasicUser & Actions>((set) => ({
@@ -17,5 +19,26 @@ export const useUserStore = create<BasicUser & Actions>((set) => ({
         role: newState.role
       })
     })
+  },
+  getUser: async () => {
+    const { data: user, error } = await supabaseClient.auth.getUser()
+    if (error !== null) console.log(error)
+    if (user.user !== null) {
+      const { data, error } = await supabaseClient
+        .from('user_data')
+        .select('*')
+        .eq('user_id', user.user?.id)
+        .single()
+      if (error !== null) console.log(error)
+      if (data !== null) {
+        set(() => {
+          return ({
+            id: data.id,
+            email: user.user.email,
+            role: 'user'
+          })
+        })
+      }
+    }
   }
 }))

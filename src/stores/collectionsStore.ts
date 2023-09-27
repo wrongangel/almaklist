@@ -8,6 +8,7 @@ interface CollectionsStore {
   fetchCollections: (id: string) => Promise<void>
   addList: (user: string, name: string) => Promise<void>
   removeList: (list_id: string) => Promise<void>
+  getCollectionItems: (list_id: string) => Promise<void>
 }
 
 export const useCollestionsStore = create<CollectionsStore>((set) => ({
@@ -72,6 +73,34 @@ export const useCollestionsStore = create<CollectionsStore>((set) => ({
       set((state) => {
         return ({
           collections: state.collections.filter((collection) => collection.id !== list_id)
+        })
+      })
+    }
+  },
+  getCollectionItems: async (list_id) => {
+    const { data, error } = await supabaseClient
+      .from('item_entries')
+      .select(`
+      id,
+      created_at,
+      completed,
+      added_by,
+      quantity,
+      user_data (id, user_name),
+      item_type (item_name),
+      quantity_type (shortName)
+      `)
+      .eq('list_id', list_id)
+    if (error !== null) console.log(error)
+    if (data !== null && data.length > 0) {
+      set((state) => {
+        return ({
+          collections: state.collections.map((collection) => {
+            if (collection.id === list_id) {
+              return { ...collection, items: data }
+            }
+            return collection
+          })
         })
       })
     }

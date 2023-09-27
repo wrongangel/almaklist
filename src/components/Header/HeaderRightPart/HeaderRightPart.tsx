@@ -9,7 +9,7 @@ const HeaderRightPart = (): JSX.Element => {
     <>
       {
         userStore.id !== ''
-          ? <Link href='#'>{userStore.email}</Link>
+          ? <Link href='#'>{userStore.user_name}</Link>
           : <>
             <Link href='/login'>Log in</Link>
             <Link href='/registration'>Sign up</Link>

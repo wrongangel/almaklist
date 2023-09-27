@@ -11,12 +11,16 @@ export const useUserStore = create<BasicUser & Actions>((set) => ({
   id: '',
   email: '',
   role: 'user',
+  avatar: '',
+  user_name: '',
   setState: (newState) => {
     set(() => {
       return ({
         id: newState.id,
         email: newState.email,
-        role: newState.role
+        role: newState.role,
+        avatar: newState.avatar,
+        user_name: newState.user_name
       })
     })
   },
@@ -35,7 +39,9 @@ export const useUserStore = create<BasicUser & Actions>((set) => ({
           return ({
             id: data.id,
             email: user.user.email,
-            role: data.role
+            role: data.role,
+            avatar: data.avatar ?? '',
+            user_name: data.user_name ?? ''
           })
         })
       }

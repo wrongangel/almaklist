@@ -10,7 +10,9 @@ const CollectionsList = (): JSX.Element => {
   const { collections, fetchCollections } = useCollestionsStore()
 
   useEffect(() => {
-    void fetchCollections(userStore.id)
+    if (userStore.id !== '') {
+      void fetchCollections(userStore.id)
+    }
   }, [userStore.id, fetchCollections])
 
   return (

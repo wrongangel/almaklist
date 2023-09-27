@@ -6,7 +6,7 @@ interface CollectionsStore {
   collections: Collection[]
   setState: (newState: Collection[]) => void
   fetchCollections: (id: string) => Promise<void>
-  addList: (user: string,name: string) => Promise<void>
+  addList: (user: string, name: string) => Promise<void>
 }
 
 export const useCollestionsStore = create<CollectionsStore>((set) => ({
@@ -38,17 +38,26 @@ export const useCollestionsStore = create<CollectionsStore>((set) => ({
     }
   },
   addList: async (user, name) => {
-    set((state) => {
-      return ({
-        collections: [
-          ...state.collections,
-          {
-            created_at: '',
-            id: '',
-            name
-          }
-        ]
-      })
-    })
+    const { data, error } = await supabaseClient
+      .rpc('add_list', {
+        list_name: name,
+        user_id: user
+      }).single()
+    if (error !== null) console.log(error)
+    if (data !== null) {
+      set((state) => {
+        return ({
+          collections: [
+            ...state.collections,
+            {
+              created_at: data.created_at,
+              id: data.id,
+              name: data.name
+            }
+          ]
+        })
+      }
+      )
+    }
   }
 }))

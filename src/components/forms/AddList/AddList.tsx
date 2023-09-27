@@ -1,19 +1,17 @@
 'use client'
 
 import { useCollestionsStore } from '@/stores/collectionsStore'
+import { useUserStore } from '@/stores/userStore'
 import * as Form from '@radix-ui/react-form'
 import { type FormEvent, useState } from 'react'
 
-interface Props {
-  reload?: () => Promise<void>
-}
-
-const AddList = (props: Props): JSX.Element => {
+const AddList = (): JSX.Element => {
   const [name, setName] = useState<string>('')
   const collectionsStore = useCollestionsStore()
+  const userStore = useUserStore()
   const handleAddList = (e: FormEvent): void => {
     e.preventDefault()
-    collectionsStore.addList(name)
+    void collectionsStore.addList(userStore.id, name)
   }
 
   return (

@@ -27,7 +27,7 @@ export const useUserStore = create<BasicUser & Actions>((set) => ({
       const { data, error } = await supabaseClient
         .from('user_data')
         .select('*')
-        .eq('user_id', user.user?.id)
+        .eq('id', user.user?.id)
         .single()
       if (error !== null) console.log(error)
       if (data !== null) {
@@ -35,7 +35,7 @@ export const useUserStore = create<BasicUser & Actions>((set) => ({
           return ({
             id: data.id,
             email: user.user.email,
-            role: 'user'
+            role: data.role
           })
         })
       }

@@ -151,17 +151,17 @@ export interface Database {
         Row: {
           id: string
           name: string
-          short_name: string
+          shortName: string
         }
         Insert: {
           id?: string
           name: string
-          short_name: string
+          shortName: string
         }
         Update: {
           id?: string
           name?: string
-          short_name?: string
+          shortName?: string
         }
         Relationships: []
       }
@@ -170,55 +170,27 @@ export interface Database {
           avatar: string | null
           created_at: string
           id: string
-          user_id: string
-          userName: string | null
-        }
-        Insert: {
-          avatar?: string | null
-          created_at?: string
-          id?: string
-          user_id: string
-          userName?: string | null
-        }
-        Update: {
-          avatar?: string | null
-          created_at?: string
-          id?: string
-          user_id?: string
-          userName?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "user_data_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
-      user_role: {
-        Row: {
-          created_at: string
-          id: string
           role: string
-          user_id: string
+          user_name: string | null
         }
         Insert: {
+          avatar?: string | null
           created_at?: string
-          id?: string
+          id: string
           role?: string
-          user_id: string
+          user_name?: string | null
         }
         Update: {
+          avatar?: string | null
           created_at?: string
           id?: string
           role?: string
-          user_id?: string
+          user_name?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "user_role_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: "user_data_id_fkey"
+            columns: ["id"]
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -228,17 +200,17 @@ export interface Database {
         Row: {
           id: number
           list: string
-          user: string
+          user_id: string
         }
         Insert: {
           id?: number
           list: string
-          user: string
+          user_id: string
         }
         Update: {
           id?: number
           list?: string
-          user?: string
+          user_id?: string
         }
         Relationships: [
           {
@@ -248,8 +220,8 @@ export interface Database {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "users_to_lists_user_fkey"
-            columns: ["user"]
+            foreignKeyName: "users_to_lists_user_id_fkey"
+            columns: ["user_id"]
             referencedRelation: "user_data"
             referencedColumns: ["id"]
           }
@@ -260,7 +232,17 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      add_list: {
+        Args: {
+          user_id: string
+          list_name: string
+        }
+        Returns: {
+          created_at: string
+          id: string
+          name: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

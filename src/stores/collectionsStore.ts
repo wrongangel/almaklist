@@ -6,6 +6,7 @@ interface CollectionsStore {
   collections: Collection[]
   setState: (newState: Collection[]) => void
   fetchCollections: (id: string) => Promise<void>
+  addList: (user: string,name: string) => Promise<void>
 }
 
 export const useCollestionsStore = create<CollectionsStore>((set) => ({
@@ -23,7 +24,7 @@ export const useCollestionsStore = create<CollectionsStore>((set) => ({
     const { data, error } = await supabaseClient
       .from('users_to_lists')
       .select('list (*)')
-      .eq('user', id)
+      .eq('user_id', id)
       .not('list', 'is', 'NULL')
     if (error !== null) console.log(error)
 
@@ -35,5 +36,19 @@ export const useCollestionsStore = create<CollectionsStore>((set) => ({
       }
       )
     }
+  },
+  addList: async (user, name) => {
+    set((state) => {
+      return ({
+        collections: [
+          ...state.collections,
+          {
+            created_at: '',
+            id: '',
+            name
+          }
+        ]
+      })
+    })
   }
 }))

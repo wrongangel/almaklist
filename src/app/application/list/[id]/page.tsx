@@ -16,9 +16,9 @@ const ListPage = async ({ params }: { params: { id: string } }): Promise<JSX.Ele
       list (name),
       added_by,
       quantity,
-      user_data (id, userName),
+      user_data (id, user_name),
       item_type (item_name),
-      quantity_type (short_name)
+      quantity_type (shortName)
       `)
     .eq('list_id', params.id)
   if (error !== null) console.log(error)
@@ -30,7 +30,7 @@ const ListPage = async ({ params }: { params: { id: string } }): Promise<JSX.Ele
       {data.length < 1
         ? <div>no items</div>
         : data.map(item => (
-          <div key={item.id}>{item.item_type?.item_name} {item.quantity} {item.quantity_type?.short_name}</div>
+          <div key={item.id}>{item.item_type?.item_name} {item.quantity} {item.quantity_type?.shortName}</div>
         ))}
     </div>
   )

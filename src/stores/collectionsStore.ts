@@ -7,6 +7,7 @@ interface CollectionsStore {
   setState: (newState: Collection[]) => void
   fetchCollections: (id: string) => Promise<void>
   addList: (user: string, name: string) => Promise<void>
+  removeList: (list_id: string) => Promise<void>
 }
 
 export const useCollestionsStore = create<CollectionsStore>((set) => ({
@@ -58,6 +59,21 @@ export const useCollestionsStore = create<CollectionsStore>((set) => ({
         })
       }
       )
+    }
+  },
+  removeList: async (list_id) => {
+    const { error } = await supabaseClient
+      .from('list')
+      .delete()
+      .eq('id', list_id)
+    if (error !== null) {
+      console.log(error.message)
+    } else {
+      set((state) => {
+        return ({
+          collections: state.collections.filter((collection) => collection.id !== list_id)
+        })
+      })
     }
   }
 }))

@@ -1,7 +1,7 @@
 'use client'
 
-import type Item from '@/models/item'
 import { useCollestionsStore } from '@/stores/collectionsStore'
+import { useUserStore } from '@/stores/userStore'
 import { useEffect, useState } from 'react'
 
 interface Props {
@@ -10,25 +10,29 @@ interface Props {
 const ItemsList = ({ listId }: Props): JSX.Element => {
   const collectionsStore = useCollestionsStore()
   const [init, setInit] = useState<boolean>(false)
-  const [items, setItems] = useState<Item[]>([])
+  const userStore = useUserStore()
+
   useEffect(() => {
-    if (!init) {
+    if (collectionsStore.collections.length === 0 && userStore.id !== '') {
+      void collectionsStore.fetchCollections(userStore.id)
+    }
+    if (!init && collectionsStore.collections.length > 0) {
       setInit(true)
       void collectionsStore.getCollectionItems(listId)
     }
-    const newItems: Item[] | undefined = collectionsStore.collections.find((collection) => {
-      return collection.id === listId
-    })?.items
-    if (newItems !== undefined) setItems(newItems)
-  }, [collectionsStore, listId, init])
+  }, [collectionsStore, listId, init, userStore])
 
   return (
     <div>
-      {collectionsStore.collections.find((collection) => {
-        return collection.id === listId
-      })?.items?.map((item) => <div key={item.id}>
-        {item.item_type?.item_name}
-      </div>)}
+      {collectionsStore.collections.map((collection) =>
+        collection.id === listId && collection.items !== undefined &&
+        collection.items.map((item) =>
+          <div key={item.id}>
+            {item.item_type?.item_name}
+          </div>
+        )
+      )
+      }
     </div>
   )
 }

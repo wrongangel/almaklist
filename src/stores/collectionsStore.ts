@@ -28,13 +28,20 @@ export const useCollestionsStore = create<CollectionsStore>((set) => ({
       .from('users_to_lists')
       .select('list (*)')
       .eq('user_id', id)
-      .not('list', 'is', 'NULL')
     if (error !== null) console.log(error)
 
     if (data !== null && data.length > 0) {
-      set(() => {
+      set((state) => {
         return ({
-          collections: data.flatMap((item) => item.list ?? [])
+          collections: data.flatMap((item) => {
+            if (item.list !== null) {
+              const haveCollection = state.collections.find((collection) => collection.id === item.list?.id)
+              if (haveCollection !== undefined) {
+                return { ...item.list, items: haveCollection.items }
+              }
+              return item.list
+            } else return []
+          })
         })
       }
       )

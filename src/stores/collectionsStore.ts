@@ -9,6 +9,7 @@ interface CollectionsStore {
   addList: (user: string, name: string) => Promise<void>
   removeList: (list_id: string) => Promise<void>
   getCollectionItems: (list_id: string) => Promise<void>
+  addItem: (author_id: string, item_type: string, quantity: number, quantity_type: string, list_id: string) => Promise<void>
   changeItemComplete: (item_id: string, isComplete: boolean, list_id: string) => Promise<void>
   deleteItem: (item_id: string, list_id: string) => Promise<void>
 }
@@ -160,6 +161,48 @@ export const useCollestionsStore = create<CollectionsStore>((set) => ({
           collections: state.collections.map((collection) => {
             if (collection.id === list_id) {
               return { ...collection, items: collection.items?.filter((item) => item.id !== item_id) }
+            }
+            return collection
+          })
+        })
+      })
+    }
+  },
+
+  addItem: async (author_id: string, item_type: string, quantity: number, quantity_type: string, list_id: string) => {
+    const { data, error } = await supabaseClient
+      .from('item_entries')
+      .insert([
+        {
+          added_by: author_id,
+          item_type,
+          quantity,
+          quantity_type,
+          list_id
+        }
+      ])
+      .select(`
+      id,
+      created_at,
+      completed,
+      added_by,
+      quantity,
+      user_data (id, user_name),
+      item_type (item_name),
+      quantity_type (shortName)
+      `)
+      .single()
+    if (error !== null) console.log(error)
+    if (data !== null) {
+      set((state) => {
+        return ({
+          collections: state.collections.map((collection) => {
+            if (collection.id === list_id) {
+              if (collection.items !== undefined) {
+                return { ...collection, items: [...collection.items, data] }
+              } else {
+                return { ...collection, items: [data] }
+              }
             }
             return collection
           })

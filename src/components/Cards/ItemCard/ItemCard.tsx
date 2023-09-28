@@ -18,11 +18,14 @@ const ItemCard = ({ item, props, from }: Props): JSX.Element => {
   }
 
   return (
-    <div onClick={() => { handleItemChange() }}>
-      <BasicCard {...props}>
-        <div>{item.item_type?.item_name} {item.completed ? 'true' : 'false'}</div>
-      </BasicCard>
-    </div>
+    <>
+      <div onClick={() => { handleItemChange() }}>
+        <BasicCard {...props}>
+          <div>{item.item_type?.item_name} {item.completed ? 'true' : 'false'}</div>
+        </BasicCard>
+      </div>
+      <button onClick={() => { void collectionsStore.deleteItem(item.id, from)}}>delete</button>
+    </>
   )
 }
 export default ItemCard

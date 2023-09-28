@@ -10,6 +10,7 @@ interface CollectionsStore {
   removeList: (list_id: string) => Promise<void>
   getCollectionItems: (list_id: string) => Promise<void>
   changeItemComplete: (item_id: string, isComplete: boolean, list_id: string) => Promise<void>
+  deleteItem: (item_id: string, list_id: string) => Promise<void>
 }
 
 export const useCollestionsStore = create<CollectionsStore>((set) => ({
@@ -138,6 +139,27 @@ export const useCollestionsStore = create<CollectionsStore>((set) => ({
                   return item
                 })
               }
+            }
+            return collection
+          })
+        })
+      })
+    }
+  },
+
+  deleteItem: async (item_id, list_id) => {
+    const { error } = await supabaseClient
+      .from('item_entries')
+      .delete()
+      .eq('id', item_id)
+    if (error !== null) {
+      console.log(error)
+    } else {
+      set((state) => {
+        return ({
+          collections: state.collections.map((collection) => {
+            if (collection.id === list_id) {
+              return { ...collection, items: collection.items?.filter((item) => item.id !== item_id) }
             }
             return collection
           })

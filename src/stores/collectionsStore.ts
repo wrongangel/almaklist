@@ -9,6 +9,7 @@ interface CollectionsStore {
   addList: (user: string, name: string) => Promise<void>
   removeList: (list_id: string) => Promise<void>
   getCollectionItems: (list_id: string) => Promise<void>
+  changeItemComplete: (item_id: string, isComplete: boolean, list_id: string) => Promise<void>
 }
 
 export const useCollestionsStore = create<CollectionsStore>((set) => ({
@@ -39,6 +40,7 @@ export const useCollestionsStore = create<CollectionsStore>((set) => ({
       )
     }
   },
+
   addList: async (user, name) => {
     const { data, error } = await supabaseClient
       .rpc('add_list', {
@@ -62,6 +64,7 @@ export const useCollestionsStore = create<CollectionsStore>((set) => ({
       )
     }
   },
+
   removeList: async (list_id) => {
     const { error } = await supabaseClient
       .from('list')
@@ -77,6 +80,7 @@ export const useCollestionsStore = create<CollectionsStore>((set) => ({
       })
     }
   },
+
   getCollectionItems: async (list_id) => {
     const { data, error } = await supabaseClient
       .from('item_entries')
@@ -98,6 +102,35 @@ export const useCollestionsStore = create<CollectionsStore>((set) => ({
           collections: state.collections.map((collection) => {
             if (collection.id === list_id) {
               return { ...collection, items: data }
+            }
+            return collection
+          })
+        })
+      })
+    }
+  },
+
+  changeItemComplete: async (item_id, isComplete, list_id) => {
+    const { data, error } = await supabaseClient
+      .from('item_entries')
+      .update({ completed: isComplete })
+      .eq('id', item_id)
+      .select()
+    if (error !== null) console.log(error)
+    if (data !== null) {
+      set((state) => {
+        return ({
+          collections: state.collections.map((collection) => {
+            if (collection.id === list_id) {
+              return {
+                ...collection,
+                items: collection.items?.map((item) => {
+                  if (item.id === item_id) {
+                    return { ...item, completed: isComplete }
+                  }
+                  return item
+                })
+              }
             }
             return collection
           })

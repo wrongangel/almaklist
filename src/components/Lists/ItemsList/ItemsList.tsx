@@ -28,7 +28,7 @@ const ItemsList = ({ listId }: Props): JSX.Element => {
       {collectionsStore.collections.map((collection) =>
         collection.id === listId && collection.items !== undefined &&
         collection.items.map((item) =>
-          <ItemCard key={item.id} item={item} />
+          <ItemCard key={item.id} item={item} from={collection.id} />
         )
       )
       }

@@ -1,9 +1,9 @@
-import { type HTMLAttributes } from 'react'
+import React, { type HTMLAttributes } from 'react'
 import styles from './BasicCard.module.scss'
 
 interface Props {
   props?: HTMLAttributes<HTMLDivElement>
-  children?: React.ReactElement | string
+  children?: React.ReactElement
 }
 const BasicCard = ({ props, children }: Props): JSX.Element => {
   return (

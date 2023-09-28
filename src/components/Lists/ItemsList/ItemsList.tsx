@@ -1,5 +1,6 @@
 'use client'
 
+import ItemCard from '@/components/Cards/ItemCard/ItemCard'
 import { useCollestionsStore } from '@/stores/collectionsStore'
 import { useUserStore } from '@/stores/userStore'
 import { useEffect, useState } from 'react'
@@ -27,9 +28,7 @@ const ItemsList = ({ listId }: Props): JSX.Element => {
       {collectionsStore.collections.map((collection) =>
         collection.id === listId && collection.items !== undefined &&
         collection.items.map((item) =>
-          <div key={item.id}>
-            {item.item_type?.item_name}
-          </div>
+          <ItemCard key={item.id} item={item} />
         )
       )
       }

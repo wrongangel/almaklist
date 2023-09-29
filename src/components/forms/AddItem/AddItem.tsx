@@ -38,6 +38,17 @@ const AddItem = ({ list_id }: Props): JSX.Element => {
       {itemTypeList.map((item) => <div key={item.id}>
         <AddItemCard itemType={item} list_id={list_id} />
       </div>)}
+      {search !== '' && itemTypeList.find((item) => item.item_name.toLowerCase() === search.toLocaleLowerCase()) === undefined &&
+        <>
+          <AddItemCard itemType={
+            {
+              id: 'new',
+              default_quantity: '8943c50f-0789-4422-96a1-47466f245461',
+              item_name: search
+            }
+          } list_id={list_id} />
+        </>
+      }
     </div>
   )
 }

@@ -232,6 +232,25 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
+      add_item_with_type: {
+        Args: {
+          user_id: string
+          new_item_name: string
+          quantity: number
+          quantity_type: string
+          list_id: string
+        }
+        Returns: {
+          added_by: string
+          completed: boolean
+          created_at: string
+          id: string
+          item_type: string
+          list_id: string
+          quantity: number
+          quantity_type: string
+        }[]
+      }
       add_list: {
         Args: {
           user_id: string

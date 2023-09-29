@@ -19,13 +19,23 @@ const AddItemCard = ({ itemType, list_id }: Props): JSX.Element => {
   const [quantityId, setQuantityId] = useState<string>(itemType.default_quantity)
 
   const handleAddItem = (item_type: string, quantity_type: string): void => {
-    void collectionsStore.addItem(
-      userStore.id,
-      item_type,
-      parseFloat(count),
-      quantity_type,
-      list_id
-    )
+    if (item_type !== 'new') {
+      void collectionsStore.addItem(
+        userStore.id,
+        item_type,
+        parseFloat(count),
+        quantity_type,
+        list_id
+      )
+    } else {
+      void collectionsStore.addItemWithType(
+        userStore.id,
+        itemType.item_name,
+        parseFloat(count),
+        quantity_type,
+        list_id
+      )
+    }
   }
   return (
     <BasicCard><div>

@@ -21,7 +21,7 @@ const ItemCard = ({ item, props, from }: Props): JSX.Element => {
     <>
       <div onClick={() => { handleItemChange() }}>
         <BasicCard {...props}>
-          <div>{item.item_type?.item_name} {item.completed ? 'true' : 'false'}</div>
+          <div>{item.item_type?.item_name} {item.quantity} {item.quantity_type?.shortName} {item.completed ? 'true' : 'false'}</div>
         </BasicCard>
       </div>
       <button onClick={() => { void collectionsStore.deleteItem(item.id, from) }}>delete</button>

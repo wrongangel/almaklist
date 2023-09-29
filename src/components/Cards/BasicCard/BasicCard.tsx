@@ -1,13 +1,13 @@
-import React, { type HTMLAttributes } from 'react'
+import React from 'react'
 import styles from './BasicCard.module.scss'
 
 interface Props {
-  props?: HTMLAttributes<HTMLDivElement>
-  children?: React.ReactElement
+  className?: string
+  children?: React.ReactElement | string
 }
-const BasicCard = ({ props, children }: Props): JSX.Element => {
+const BasicCard = ({ className, children }: Props): JSX.Element => {
   return (
-    <div className={styles.basicCard} {...props}>{children}</div>
+    <div className={`${styles.basicCard} ${className}`}>{children}</div>
   )
 }
 export default BasicCard

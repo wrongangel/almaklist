@@ -232,6 +232,14 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
+      accept_invite: {
+        Args: {
+          user_id: string
+          invite_id: string
+          to_list: string
+        }
+        Returns: boolean
+      }
       add_item_with_type: {
         Args: {
           user_id: string

@@ -6,7 +6,10 @@ interface InvitesStore {
   invites: Invite[]
   fetchInvitesByMail: (email: string) => Promise<void>
   fetchInvitesByList: (to_list: string) => Promise<void>
+  acceptInvite: (invite_id: string, to_list: string, user_id: string) => Promise<void>
+  inviteUser: (user_id: string, to_list: string, email: string) => Promise<void>
 }
+
 export const useInvitesStore = create<InvitesStore>((set) => ({
   invites: [],
 
@@ -20,9 +23,14 @@ export const useInvitesStore = create<InvitesStore>((set) => ({
       email
       `)
       .eq('email', email)
+      .returns<Invite[]>()
     if (error !== null) console.log(error.message)
     if (data !== null && data.length > 0) {
-      set(() => { return ({ invites: data }) })
+      set(() => {
+        return ({
+          invites: data
+        })
+      })
     }
   },
 
@@ -36,10 +44,42 @@ export const useInvitesStore = create<InvitesStore>((set) => ({
       email
       `)
       .eq('to_list', to_list)
+      .returns<Invite[]>()
     if (error !== null) console.log(error.message)
     if (data !== null && data.length > 0) {
       set(() => { return ({ invites: data }) })
     }
+  },
+
+  acceptInvite: async (invite_id, to_list, user_id) => {
+    const { data, error } = await supabaseClient
+      .rpc('accept_invite', {
+        invite_id,
+        to_list,
+        user_id
+      })
+    if (error !== null) {
+      console.log(error.message)
+    } else if (data) {
+      set((state) => {
+        return ({
+          invites: state.invites.filter((invite) => invite.id !== invite_id)
+        })
+      })
+    }
+  },
+
+  inviteUser: async (user_id, to_list, email) => {
+    const { error } = await supabaseClient
+      .from('invites')
+      .insert([
+        {
+          from: user_id,
+          to_list,
+          email
+        }
+      ])
+    if (error !== null) console.log(error.message)
   }
 
 }))

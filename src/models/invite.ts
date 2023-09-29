@@ -4,6 +4,6 @@ export interface Invite {
   list: {
     id: string,
     name: string
-  } | null
+  }
   email: string
 }

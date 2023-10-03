@@ -1,5 +1,17 @@
 .collections {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 1rem;
+}
+
+@media (min-width: 500px) {
+  .collections {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 800px) {
+  .collections {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }

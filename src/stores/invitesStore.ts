@@ -18,7 +18,7 @@ export const useInvitesStore = create<InvitesStore>((set) => ({
       .from('invites')
       .select(`
       id,
-      from,
+      user_data (user_name),
       list (id, name),
       email
       `)

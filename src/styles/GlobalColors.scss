@@ -1,12 +1,17 @@
 :root {
-  --background-color: rgb(254, 255, 252);
-  --text-color: rgb(11, 0, 43);
+  --background-color: rgba(255, 247, 245, 1);
+  --text-color: rgba(22, 25, 37, 1);
+  --gradient-main: linear-gradient(180deg, #F34213 0%, #F5B700 100%);
+  --dark-text: rgba(22, 25, 37, 1);
+  --primary-color: rgba(243, 66, 19, 1);
+  --secondary-color: rgba(245, 183, 0, 1);
+  --tertriry_color: rgba(125, 187, 195, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background-color: rgb(11, 0, 43);
-    --text-color: rgb(255, 239, 239);
+    --background-color: rgba(22, 25, 37, 1);
+    --text-color: rgba(255, 247, 245, 1);
   }
 }
 

@@ -2,6 +2,8 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+  background-color: var(--primary-color);
+  color: var(--dark-text);
 
   &__content {
     display: flex;

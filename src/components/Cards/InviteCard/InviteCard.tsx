@@ -17,6 +17,9 @@ const InviteCard = ({ invite }: Props): JSX.Element => {
   const handleAccept = (): void => {
     void invitesStore.acceptInvite(invite.id, invite.list?.id, userStore.id)
   }
+  const handleDecline = (): void => {
+    void invitesStore.deleteInvite(invite.id)
+  }
 
   return (
     <BasicCard className={styles.inviteCard}><>
@@ -26,7 +29,7 @@ const InviteCard = ({ invite }: Props): JSX.Element => {
       </div>
       <div className={styles.inviteCard__actions}>
         <button onClick={handleAccept}><Image src={CheckIcon} alt='accept invite' /></button>
-        <button><Image src={DeleteIcon} alt='decline invite' /></button>
+        <button onClick={handleDecline}><Image src={DeleteIcon} alt='decline invite' /></button>
       </div>
     </></BasicCard>
   )

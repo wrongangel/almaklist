@@ -8,6 +8,7 @@ interface InvitesStore {
   fetchInvitesByList: (to_list: string) => Promise<void>
   acceptInvite: (invite_id: string, to_list: string, user_id: string) => Promise<void>
   inviteUser: (user_id: string, to_list: string, email: string) => Promise<void>
+  deleteInvite: (invite_id: string) => Promise<void>
 }
 
 export const useInvitesStore = create<InvitesStore>((set) => ({
@@ -80,6 +81,22 @@ export const useInvitesStore = create<InvitesStore>((set) => ({
         }
       ])
     if (error !== null) console.log(error.message)
+  },
+
+  deleteInvite: async (invite_id) => {
+    const { error } = await supabaseClient
+      .from('invites')
+      .delete()
+      .eq('id', invite_id)
+    if (error !== null) {
+      console.log(error.message)
+    } else {
+      set((state) => {
+        return ({
+          invites: state.invites.filter((invite) => invite.id !== invite_id)
+        })
+      })
+    }
   }
 
 }))

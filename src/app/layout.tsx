@@ -8,7 +8,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Almaklist',
-  description: 'Manage shopping lists together'
+  description: 'Manage shopping lists together',
+  manifest: '/manifest.json'
 }
 
 export default function RootLayout ({

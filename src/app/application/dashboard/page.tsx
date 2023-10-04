@@ -5,6 +5,7 @@ import styles from './page.module.scss'
 const Dashboard = async (): Promise<JSX.Element> => {
   return (
     <div className={styles.dashboard}>
+      <h2>Your lists</h2>
       <CollectionsList />
       <AddList />
     </div>

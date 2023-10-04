@@ -1,0 +1,17 @@
+.addItemCard {
+  padding: .5rem;
+  background-color: var(--secondary-color);
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  color: var(--dark-text);
+
+  & p {
+    flex-grow: 1;
+    font-weight: 600;
+  }
+
+  &_new {
+    background-color: var(--primary-color);
+  }
+}

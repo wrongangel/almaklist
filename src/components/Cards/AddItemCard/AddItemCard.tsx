@@ -3,9 +3,13 @@ import { type ItemType } from '@/models/itemType'
 import BasicCard from '../BasicCard/BasicCard'
 import { useUserStore } from '@/stores/userStore'
 import { useCollestionsStore } from '@/stores/collectionsStore'
-import { useQuantityStore } from '@/stores/quantityStore'
-import * as Select from '@radix-ui/react-select'
 import { useState } from 'react'
+import styles from './AddItemCard.module.scss'
+import SelectQuantityType from '@/components/Select/SelectQuantityType/SelectQuantityType'
+import IconButton from '@/components/Buttons/IconButton/IconButton'
+import Image from 'next/image'
+import PlusIcon from '@/assets/icons/Plus.svg'
+import NumberInput from '@/components/Inputs/NumberInput/NumberInput'
 
 interface Props {
   itemType: ItemType
@@ -14,8 +18,7 @@ interface Props {
 const AddItemCard = ({ itemType, list_id }: Props): JSX.Element => {
   const userStore = useUserStore()
   const collectionsStore = useCollestionsStore()
-  const quantityStore = useQuantityStore()
-  const [count, setCount] = useState<string>('1')
+  const [count, setCount] = useState<number>(1)
   const [quantityId, setQuantityId] = useState<string>(itemType.default_quantity)
 
   const handleAddItem = (item_type: string, quantity_type: string): void => {
@@ -23,7 +26,7 @@ const AddItemCard = ({ itemType, list_id }: Props): JSX.Element => {
       void collectionsStore.addItem(
         userStore.id,
         item_type,
-        parseFloat(count),
+        count,
         quantity_type,
         list_id
       )
@@ -31,39 +34,21 @@ const AddItemCard = ({ itemType, list_id }: Props): JSX.Element => {
       void collectionsStore.addItemWithType(
         userStore.id,
         itemType.item_name,
-        parseFloat(count),
+        count,
         quantity_type,
         list_id
       )
     }
   }
   return (
-    <BasicCard><div>
-      {itemType.item_name}
-      <input type='number' value={count} onChange={(e) => { setCount(e.target.value) }} />
+    <BasicCard className={`${styles.addItemCard} ${itemType.id === 'new' && styles.addItemCard_new}`}>
+      <p>{itemType.item_name}</p>
+      <NumberInput value={count} onChange={setCount} />
 
-      <Select.Root
-        defaultValue={itemType.default_quantity}
-        value={quantityId}
-        onValueChange={(e) => { setQuantityId(e) }}>
-        <Select.Trigger>
-          <Select.Value />
-        </Select.Trigger>
-        <Select.Portal>
-          <Select.Group>
-            <Select.Content>
-              {quantityStore.quantity.map((q) =>
-                <Select.Item value={q.id} key={q.id}>
-                  <Select.ItemText>{q.name}</Select.ItemText>
-                </Select.Item>
-              )}
-            </Select.Content>
-          </Select.Group>
-        </Select.Portal>
-      </Select.Root>
+      <SelectQuantityType value={quantityId} onValueChange={setQuantityId} itemType={itemType} />
 
-      <button onClick={() => { handleAddItem(itemType.id, quantityId) }}>add</button>
-    </div></BasicCard>
+      <IconButton onClick={() => { handleAddItem(itemType.id, quantityId) }}><Image src={PlusIcon} alt='add item'/></IconButton>
+    </BasicCard>
   )
 }
 export default AddItemCard

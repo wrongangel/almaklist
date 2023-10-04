@@ -1,0 +1,16 @@
+.numberInput{
+  display: flex;
+  align-items: center;
+
+  &__input {
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    width: 3rem;
+    font-weight: 600;
+  }
+
+  &__icon {
+    height: 1rem;
+  }
+}

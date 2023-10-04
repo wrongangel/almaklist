@@ -1,0 +1,31 @@
+.selectTrigger {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  gap: .25rem;
+  width: 3rem;
+  justify-content: flex-end;
+}
+
+.selectContent {
+  background-color: var(--background-color);
+  padding: 1rem;
+}
+
+.selectViewport {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.selectItem {
+  display: flex;
+  gap: .5rem;
+  cursor: pointer;
+
+  & p {
+    flex-grow: 1;
+  }
+}

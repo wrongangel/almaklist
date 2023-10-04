@@ -7,6 +7,7 @@ import CheckIcon from '@/assets/icons/Check.svg'
 import DeleteIcon from '@/assets/icons/Delete.svg'
 
 import Image from 'next/image'
+import IconButton from '@/components/Buttons/IconButton/IconButton'
 
 interface Props {
   invite: Invite
@@ -28,8 +29,8 @@ const InviteCard = ({ invite }: Props): JSX.Element => {
         <p>To list <span>{invite.list?.name}</span></p>
       </div>
       <div className={styles.inviteCard__actions}>
-        <button onClick={handleAccept}><Image src={CheckIcon} alt='accept invite' /></button>
-        <button onClick={handleDecline}><Image src={DeleteIcon} alt='decline invite' /></button>
+        <IconButton onClick={handleAccept}><Image src={CheckIcon} alt='accept invite' /></IconButton>
+        <IconButton onClick={handleDecline}><Image src={DeleteIcon} alt='decline invite' /></IconButton>
       </div>
     </></BasicCard>
   )

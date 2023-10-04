@@ -5,6 +5,7 @@ import { type ItemType } from '@/models/itemType'
 import { useItemTypeStore } from '@/stores/itemTypeStore'
 import { useQuantityStore } from '@/stores/quantityStore'
 import { useEffect, useState } from 'react'
+import styles from './AddItem.module.scss'
 
 interface Props {
   list_id: string
@@ -33,21 +34,19 @@ const AddItem = ({ list_id }: Props): JSX.Element => {
   }, [search, itemTypeStore.itemTypes])
 
   return (
-    <div>
+    <div className={styles.addItemForm}>
       <input type='text' value={search} onChange={(e) => { setSearch(e.target.value) }} />
       {itemTypeList.map((item) => <div key={item.id}>
         <AddItemCard itemType={item} list_id={list_id} />
       </div>)}
       {search !== '' && itemTypeList.find((item) => item.item_name.toLowerCase() === search.toLocaleLowerCase()) === undefined &&
-        <>
-          <AddItemCard itemType={
-            {
-              id: 'new',
-              default_quantity: '8943c50f-0789-4422-96a1-47466f245461',
-              item_name: search
-            }
-          } list_id={list_id} />
-        </>
+        <AddItemCard itemType={
+          {
+            id: 'new',
+            default_quantity: '8943c50f-0789-4422-96a1-47466f245461',
+            item_name: search
+          }
+        } list_id={list_id} />
       }
     </div>
   )

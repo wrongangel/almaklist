@@ -26,7 +26,7 @@ const ItemCard = ({ item, from }: Props): JSX.Element => {
         <div onClick={() => { handleItemChange() }} className={styles.itemCard__content}>
           <Image src={CheckIcon} alt=''
             className={`${styles.itemCard__checkIcon} ${item.completed && styles.itemCard__checkIcon_completed}`} />
-          <b>{item.item_type?.item_name}</b> {item.quantity} {item.quantity_type?.shortName}
+          <p><b>{item.item_type?.item_name}</b> {item.quantity} {item.quantity_type?.shortName}</p>
         </div>
         <IconButton onClick={() => { void collectionsStore.deleteItem(item.id, from) }}>
           <Image src={DeleteIcon} alt='delete item' />

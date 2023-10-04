@@ -1,9 +1,9 @@
 import ItemsList from '@/components/Lists/ItemsList/ItemsList'
-import AddItem from '@/components/forms/AddItem/AddItem'
 import InviteToList from '@/components/forms/InviteToList/InviteToList'
 import supabaseServer from '@/service/supabase'
 import styles from './page.module.scss'
 import BackButton from '@/components/Buttons/BackButton/BackButton'
+import AddItemDialogue from '@/components/Dialogues/AddItemDialogue/AddItemDialogue'
 
 const ListPage = async ({ params }: { params: { id: string } }): Promise<JSX.Element> => {
   const supabase = await supabaseServer()
@@ -20,7 +20,7 @@ const ListPage = async ({ params }: { params: { id: string } }): Promise<JSX.Ele
         <h2>{list?.name}</h2>
       </div>
       <ItemsList listId={params.id} />
-      <AddItem list_id={params.id} />
+      <AddItemDialogue listId={params.id} />
       <InviteToList to_list={params.id} />
     </div>
   )

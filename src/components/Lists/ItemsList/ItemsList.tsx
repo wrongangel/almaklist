@@ -4,6 +4,7 @@ import ItemCard from '@/components/Cards/ItemCard/ItemCard'
 import { useCollestionsStore } from '@/stores/collectionsStore'
 import { useUserStore } from '@/stores/userStore'
 import { useEffect, useState } from 'react'
+import styles from './ItemsList.module.scss'
 
 interface Props {
   listId: string
@@ -24,7 +25,7 @@ const ItemsList = ({ listId }: Props): JSX.Element => {
   }, [collectionsStore, listId, init, userStore])
 
   return (
-    <div>
+    <div className={styles.itemsList}>
       {collectionsStore.collections.map((collection) =>
         collection.id === listId && collection.items !== undefined &&
         collection.items.map((item) =>

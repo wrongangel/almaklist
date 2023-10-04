@@ -1,0 +1,28 @@
+.itemCard {
+  color: var(--dark-text);
+  background-color: var(--tetriary-color);
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: .5rem;
+
+  &_completed {
+    color: var(--dark-text);
+    background-color: var(--quarterniary-color);
+  }
+
+  &__content {
+    flex-grow: 1;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  &__checkIcon {
+    opacity: .3;
+
+    &_completed {
+      opacity: 1;
+    }
+  }
+}

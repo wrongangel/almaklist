@@ -11,8 +11,19 @@ body {
 }
 
 body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
   color: var(--text-color);
   background-color: var(--background-color);
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
 }
 
 a {

@@ -1,10 +1,9 @@
 'use client'
 
 import AddItemCard from '@/components/Cards/AddItemCard/AddItemCard'
-import { type ItemType } from '@/models/itemType'
 import { useItemTypeStore } from '@/stores/itemTypeStore'
 import { useQuantityStore } from '@/stores/quantityStore'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import styles from './AddItem.module.scss'
 
 interface Props {
@@ -15,7 +14,6 @@ const AddItem = ({ list_id }: Props): JSX.Element => {
   const quantityStore = useQuantityStore()
   const [init, setInit] = useState<boolean>(false)
   const [search, setSearch] = useState<string>('')
-  const [itemTypeList, setItemTypeList] = useState<ItemType[]>(itemTypeStore.itemTypes)
 
   useEffect(() => {
     if (!init) {
@@ -25,21 +23,26 @@ const AddItem = ({ list_id }: Props): JSX.Element => {
     }
   }, [init, itemTypeStore, quantityStore])
 
-  useEffect(() => {
-    setItemTypeList(
-      itemTypeStore.itemTypes.filter((itemType) =>
+  const cacheSearch = useMemo(
+    () => {
+      return itemTypeStore.itemTypes.filter((itemType) =>
         itemType.item_name.toLowerCase().includes(search.toLowerCase())
       )
-    )
-  }, [search, itemTypeStore.itemTypes])
+    }, [itemTypeStore.itemTypes, search]
+  )
+
+  const handleSearch = (searchString: string): void => {
+    setSearch(searchString)
+    void itemTypeStore.fetchItemSearch(searchString)
+  }
 
   return (
     <div className={styles.addItemForm}>
-      <input type='text' value={search} onChange={(e) => { setSearch(e.target.value) }} />
-      {itemTypeList.map((item) => <div key={item.id}>
+      <input type='search' autoComplete='off' value={search} onChange={(e) => { handleSearch(e.target.value) }} />
+      {cacheSearch.slice(0, 5).map((item) => <div key={item.id}>
         <AddItemCard itemType={item} list_id={list_id} />
       </div>)}
-      {search !== '' && itemTypeList.find((item) => item.item_name.toLowerCase() === search.toLocaleLowerCase()) === undefined &&
+      {search !== '' && cacheSearch.find((item) => item.item_name.toLowerCase() === search.toLocaleLowerCase()) === undefined &&
         <AddItemCard itemType={
           {
             id: 'new',

@@ -18,6 +18,9 @@ export default function RootLayout ({
 }): JSX.Element {
   return (
     <html lang="en">
+      <head>
+        <link rel='icon' href='/Logo.ico' sizes='any' />
+      </head>
       <body className={inter.className}>
         <UserStoreInit />
         {children}

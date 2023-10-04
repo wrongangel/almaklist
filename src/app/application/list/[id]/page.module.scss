@@ -3,4 +3,10 @@
   gap: 1rem;
   grid-template-columns: 1fr;
   width: 100%;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+  }
 }

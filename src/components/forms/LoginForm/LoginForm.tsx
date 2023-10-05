@@ -16,7 +16,7 @@ const LoginForm = (): React.ReactNode => {
       if (error !== null) {
         console.log(error.message)
       } else {
-        void userStore.getUser()
+        await userStore.getUser()
         router.push('/application/dashboard')
       }
     } catch (error) {

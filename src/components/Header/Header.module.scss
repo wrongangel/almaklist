@@ -7,11 +7,17 @@
 .header__navigation {
   position: absolute;
   left: 50%;
+  display: none;
   transform: translateX(-50%);
   & ul {
     display: flex;
     list-style: none;
     gap: 1rem;
+  }
+}
+@media (min-width: 600px) {
+  .header__navigation {
+    display: block;
   }
 }
 

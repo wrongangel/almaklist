@@ -9,13 +9,13 @@ export async function middleware (req: NextRequest): Promise<NextResponse> {
   const { data: { session } } = await supabase.auth.getSession()
   if (req.nextUrl.pathname.startsWith('/application') && session === null) {
     const redirectRes = NextResponse.redirect(new URL('/login', req.url))
-    redirectRes.headers.set(`x-middleware-cache`, `no-cache`)
+    redirectRes.headers.set('x-middleware-cache', 'no-cache')
     return redirectRes
   }
-  res.headers.set(`x-middleware-cache`, `no-cache`)
+  res.headers.set('x-middleware-cache', 'no-cache')
   return res
 }
 
 export const config = {
-  matcher: '/application/:path*',
+  matcher: '/application/:path*'
 }

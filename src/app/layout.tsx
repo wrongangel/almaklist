@@ -21,6 +21,8 @@ export default function RootLayout ({
     <html lang="en">
       <head>
         <link rel='icon' href='/Logo.ico' sizes='any' />
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFF7F5" />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#161925" />
       </head>
       <body className={inter.className}>
         <UserStoreInit />

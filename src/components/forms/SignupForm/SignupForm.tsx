@@ -23,7 +23,8 @@ const SignupForm = (): React.ReactNode => {
         console.log(error.message)
       } else {
         void userStore.getUser()
-        router.push('/application/dashboard')
+        router.push('/')
+        router.refresh()
       }
     } catch (error) {
       console.log(error)

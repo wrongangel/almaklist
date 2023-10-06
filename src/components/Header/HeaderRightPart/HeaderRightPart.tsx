@@ -1,5 +1,6 @@
 'use client'
 
+import DropdownMainMenu from '@/components/Navigation/DropdownMenu/DropdownMainMenu'
 import { useUserStore } from '@/stores/userStore'
 import Link from 'next/link'
 
@@ -8,13 +9,13 @@ const HeaderRightPart = (): JSX.Element => {
   return (
     <>
       {
-        userStore.id !== ''
-          ? <Link href='#'>{userStore.user_name}</Link>
-          : <>
-            <Link href='/login'>Log in</Link>
-            <Link href='/registration'>Sign up</Link>
-          </>
+        userStore.id === '' &&
+        <>
+          <Link href='/login'>Log in</Link>
+          <Link href='/registration'>Sign up</Link>
+        </>
       }
+      <DropdownMainMenu />
     </>
   )
 }

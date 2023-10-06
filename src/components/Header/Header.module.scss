@@ -33,11 +33,4 @@
     padding: .5rem 1rem;
     border-radius: .5rem;
   }
-  & :first-child {
-    border: 1px solid var(--text-color);
-  }
-  & :last-child {
-    background-color: var(--text-color);
-    color: var(--background-color);
-  }
 }

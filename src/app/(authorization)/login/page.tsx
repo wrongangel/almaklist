@@ -5,7 +5,7 @@ const Login = (): React.ReactNode => {
   return (
     <div>
       <h1>Login</h1>
-      <p>Don't have an account? <Link href='/registration'>Register</Link></p>
+      <p>Don&apos;t have an account? <Link href='/registration'>Register</Link></p>
       <LoginForm />
     </div>
   )

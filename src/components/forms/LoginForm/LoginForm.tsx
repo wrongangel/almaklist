@@ -4,6 +4,7 @@ import { useUserStore } from '@/stores/userStore'
 import * as Form from '@radix-ui/react-form'
 import { useRouter } from 'next/navigation'
 import { useState, type FormEvent } from 'react'
+import styles from './LoginForm.module.scss'
 
 const LoginForm = (): React.ReactNode => {
   const [email, setEmail] = useState<string>('')
@@ -31,8 +32,8 @@ const LoginForm = (): React.ReactNode => {
   }
 
   return (
-    <Form.Root onSubmit={(e) => { handleLogin(e) }}>
-      <Form.Field name='email'>
+    <Form.Root onSubmit={(e) => { handleLogin(e) }} className={styles.loginForm}>
+      <Form.Field name='email' className={styles.formField}>
         <Form.Label>Email</Form.Label>
         <Form.Control asChild>
           <input
@@ -48,7 +49,7 @@ const LoginForm = (): React.ReactNode => {
           Please provide a valid email
         </Form.Message>
       </Form.Field>
-      <Form.Field name='password'>
+      <Form.Field name='password' className={styles.formField}>
         <Form.Label>Password</Form.Label>
         <Form.Control asChild>
           <input

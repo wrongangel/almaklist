@@ -4,6 +4,7 @@ import { useUserStore } from '@/stores/userStore'
 import * as Form from '@radix-ui/react-form'
 import { useRouter } from 'next/navigation'
 import { type FormEvent, useState } from 'react'
+import styles from './SignupForm.module.scss'
 
 const SignupForm = (): React.ReactNode => {
   const [email, setEmail] = useState<string>('')
@@ -37,8 +38,8 @@ const SignupForm = (): React.ReactNode => {
   }
 
   return (
-    <Form.Root onSubmit={(e) => { handleSignup(e) }}>
-      <Form.Field name='email'>
+    <Form.Root onSubmit={(e) => { handleSignup(e) }} className={styles.signupForm}>
+      <Form.Field name='email' className={styles.formField}>
         <Form.Label>Email</Form.Label>
         <Form.Control asChild>
           <input
@@ -55,7 +56,7 @@ const SignupForm = (): React.ReactNode => {
           Please provide a valid email
         </Form.Message>
       </Form.Field>
-      <Form.Field name='password'>
+      <Form.Field name='password' className={styles.formField}>
         <Form.Label>Password</Form.Label>
         <Form.Control asChild>
           <input
@@ -72,7 +73,7 @@ const SignupForm = (): React.ReactNode => {
           Password length is minimum 8 symbols
         </Form.Message>
       </Form.Field>
-      <Form.Field name='confirmPassword'>
+      <Form.Field name='confirmPassword' className={styles.formField}>
         <Form.Label>Confirm password</Form.Label>
         <Form.Control asChild>
           <input type='password' required minLength={8} />

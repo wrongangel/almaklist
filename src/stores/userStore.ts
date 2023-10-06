@@ -5,6 +5,7 @@ import { create } from 'zustand'
 interface Actions {
   setState: (newState: BasicUser) => void
   getUser: () => Promise<void>
+  logOut: () => Promise<void>
 }
 
 export const useUserStore = create<BasicUser & Actions>((set) => ({
@@ -45,6 +46,21 @@ export const useUserStore = create<BasicUser & Actions>((set) => ({
           })
         })
       }
+    }
+  },
+
+  logOut: async () => {
+    const { error } = await supabaseClient.auth.signOut()
+    if (error !== null) {
+      console.log(error.message)
+    } else {
+      set(() => ({
+        id: '',
+        email: '',
+        role: 'user',
+        avatar: '',
+        user_name: ''
+      }))
     }
   }
 }))

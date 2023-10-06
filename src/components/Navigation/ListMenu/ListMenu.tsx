@@ -22,7 +22,7 @@ const ListMenu = ({ list }: Props): JSX.Element => {
             <a href={`/application/list/${list.id}`}>open</a>
           </DropdownMenu.Item>
           <DropdownMenu.Item asChild>
-            <button onClick={() => { void collectiosStore.removeList(list.id)}}>delete</button>
+            <button onClick={() => { void collectiosStore.removeList(list.id) }}>delete</button>
           </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Portal>

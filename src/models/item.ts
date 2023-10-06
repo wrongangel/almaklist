@@ -1,9 +1,9 @@
 export default interface Item {
-  id: string;
-  created_at: string;
-  completed: boolean;
-  added_by: string;
-  quantity: number;
+  id: string
+  created_at: string
+  completed: boolean
+  added_by: string
+  quantity: number
   user_data: {
     id: string;
     user_name: string | null

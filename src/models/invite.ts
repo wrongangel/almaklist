@@ -4,7 +4,7 @@ export interface Invite {
     user_name: string
   }
   list: {
-    id: string,
+    id: string
     name: string
   }
   email: string

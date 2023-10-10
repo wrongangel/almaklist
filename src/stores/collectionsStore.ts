@@ -5,7 +5,7 @@ import { create } from 'zustand'
 interface CollectionsStore {
   collections: Collection[]
   setState: (newState: Collection[]) => void
-  fetchCollections: (id: string) => Promise<void>
+  fetchCollections: (id: string, limit?: number) => Promise<void>
   addList: (user: string, name: string) => Promise<void>
   removeList: (list_id: string) => Promise<void>
   getCollectionItems: (list_id: string) => Promise<void>
@@ -26,11 +26,12 @@ export const useCollestionsStore = create<CollectionsStore>((set) => ({
     })
   },
 
-  fetchCollections: async (id) => {
+  fetchCollections: async (id, limit?) => {
     const { data, error } = await supabaseClient
       .from('users_to_lists')
       .select('list (*)')
       .eq('user_id', id)
+      .limit(limit ?? 100)
     if (error !== null) console.log(error)
 
     if (data !== null && data.length > 0) {

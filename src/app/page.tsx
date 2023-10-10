@@ -8,8 +8,8 @@ export default function Home (): React.ReactNode {
   return (<>
     <Header />
     <main className={styles.main}>
-      <CollectionsList limit={3} />
       <InvitesList />
+      <CollectionsList limit={3} />
       <Link href='/application/dashboard'>Dashboard</Link>
     </main>
   </>

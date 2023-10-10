@@ -5,6 +5,7 @@ import Image from 'next/image'
 import OptionsIcon from '@/assets/icons/Options.svg'
 import type Collection from '@/models/collection'
 import { useCollestionsStore } from '@/stores/collectionsStore'
+import Link from 'next/link'
 
 interface Props {
   list: Collection
@@ -19,7 +20,7 @@ const ListMenu = ({ list }: Props): JSX.Element => {
       <DropdownMenu.Portal>
         <DropdownMenu.Content className={styles.menuContent}>
           <DropdownMenu.Item asChild>
-            <a href={`/application/list/${list.id}`}>open</a>
+            <Link href={`/application/list/${list.id}`}>open</Link>
           </DropdownMenu.Item>
           <DropdownMenu.Item asChild>
             <button onClick={() => { void collectiosStore.removeList(list.id) }}>delete</button>
